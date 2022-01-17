@@ -25,9 +25,8 @@ exam_data = {'name': ['Anastasia', 'Dima', 'Katherine', 'James', 'Emily', 'Micha
             'qualify': ['yes', 'no', 'yes', 'no', 'no', 'yes', 'yes', 'no', 'no', 'yes']}
 labels = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j']
 
-# Solution
 df = pd.DataFrame(exam_data,index=labels)
-
+df
 
 # 3. Write a Pandas program to display a summary of the basic information about a specified DataFrame and its data.
 df.describe()
@@ -92,31 +91,40 @@ df.drop('k',axis=0,inplace=True)
 df
 
 # 16. Write a Pandas program to sort the DataFrame first by 'name' in descending order, then by 'score' in ascending order.
+new_row = pd.DataFrame([['Emily',7,1,'yes']], columns=['name','score','attempts','qualify'] , index=['k'])
+new_row2 = pd.DataFrame([['Emily',13,1,'yes']], columns=['name','score','attempts','qualify'] , index=['l'])
+df = df.append(new_row)
+df = df.append(new_row2)
 
+df.sort_values(by=['name','score'],ascending=[False,True],) #False is = descending
 
+df.drop('k',axis=0,inplace=True)
+df.drop('l',axis=0,inplace=True)
+df
 
 # 17. Write a Pandas program to replace the 'qualify' column contains the values 'yes' and 'no' with True and False.
 
+# Solution A - .map()
+modification = {'yes': True,'no':False}
+df['qualify'] = df['qualify'].map(modification)
+df
 
+# Solution B - .replace()
+df.replace({'qualify':{'yes': True,'no':False}},inplace=True)
+df
 
 # 18. Write a Pandas program to change the name 'James' to 'Suresh' in name column of the DataFrame.
 
-
+df.loc['d','name'] = 'Suresh'
+df
 
 # 19. Write a Pandas program to delete the 'attempts' column from the DataFrame.
 
-
+df.drop('attempts',axis=1,inplace=True)
+df
 
 # 20. Write a Pandas program to insert a new column in existing DataFrame
 
-
-
-# 21. Write a Pandas program to iterate over rows in a DataFrame.
-
-
-
-# 22. Write a Pandas program to get list from DataFrame column headers.
-
-
-
-
+color = ['Orange','White','Black','Red','Pink','Magenta','Green','Yellow','Blue','Brown']
+df['color'] = color
+df
