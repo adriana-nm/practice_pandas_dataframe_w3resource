@@ -67,3 +67,41 @@ df
 new_row = {'col1': 10, 'col2': 11, 'col3': 12}
 df = df.append(new_row, ignore_index=True)
 df
+
+# 27. Write a Pandas program to write a DataFrame to CSV file using tab separator.
+data = [[1,4,7],[4,5,8],[3,6,9],[4,7,0],[5,8,1]]
+df = pd.DataFrame (data, columns=['col1','col2','col3'])
+df
+
+df.to_csv('new_file.csv', sep='\t', index=False)
+new_df = pd.read_csv('new_file.csv', sep='\t')
+new_df
+
+# 28. Write a Pandas program to count city wise number of people from a given of data set (city, name of the person).
+city_names= {'city': ['California', 'Los Angeles', 'California', 'Georgia', 'Los Angeles', 'California', 'Los Angeles', 'Georgia', 'Los Angeles', 'California'],
+             'names': ['Anastasia', 'Dima', 'Katherine', 'James', 'Emily', 'Michael', 'Matthew', 'Laura', 'Kevin', 'Jonas']}
+df = pd.DataFrame(city_names)
+
+# Solution 1
+df = df.groupby(by='city').count()
+df.columns = df.columns.str.replace('names','Number of people')
+
+# Solution 2
+df.groupby(by='city').size().reset_index(name='Number of people')
+
+# 29. Write a Pandas program to delete DataFrame row(s) based on given column value.
+# Everything in Col2 != 5
+data = [[1,4,7],[4,5,8],[3,6,9],[4,7,0],[5,8,1]]
+df = pd.DataFrame (data, columns=['col1','col2','col3'])
+
+df = df[df['col2'] != 5]
+df
+
+
+# 30. Write a Pandas program to widen output display to see more columns.
+data = [[1,4,7],[4,5,8],[3,6,9],[4,7,0],[5,8,1]]
+df = pd.DataFrame (data, columns=['col1','col2','col3'])
+
+pd.set_option('display.max_columns', 300)
+pd.set_option('display.max_rows', 300)
+pd.set_option('display.width',None)
